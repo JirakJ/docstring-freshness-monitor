@@ -1,0 +1,63 @@
+<idea-plugin>
+    <id>com.jakubjirak.docfreshness</id>
+    <name>Docstring Freshness Monitor</name>
+    <vendor email="jakub@jirak.dev" url="https://github.com/jakubjirak">Jakub Jirák</vendor>
+
+    <description><![CDATA[
+    <h2>Docstring Freshness Monitor</h2>
+    <p>Detects stale documentation by comparing code changes with documentation changes. When code around a
+    docstring/comment changes but the doc doesn't, it marks the doc as potentially outdated.</p>
+
+    <h3>Features</h3>
+    <ul>
+        <li><b>Freshness scoring</b> — 0–100 score for every doc block based on git history</li>
+        <li><b>Stale doc inspection</b> — highlights outdated documentation with configurable severity</li>
+        <li><b>Project dashboard</b> — tool window showing freshness scores per file (Pro)</li>
+        <li><b>Multi-language</b> — Java/Kotlin (Javadoc/KDoc), Python (docstrings), JS/TS (JSDoc)</li>
+        <li><b>Git integration</b> — uses git blame/log to track code vs. doc changes</li>
+    </ul>
+
+    <h3>Part of Code Health Suite</h3>
+    <p>Works alongside <b>Dead Code Drift Radar</b> for comprehensive code quality metrics.</p>
+    ]]></description>
+
+    <depends>com.intellij.modules.platform</depends>
+    <depends optional="true" config-file="git-features.xml">Git4Idea</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- Inspection -->
+        <localInspection
+                id="com.jakubjirak.docfreshness.staleDocInspection"
+                language=""
+                displayName="Stale documentation"
+                groupName="Documentation freshness"
+                enabledByDefault="true"
+                level="WARNING"
+                implementationClass="com.jakubjirak.docfreshness.inspection.StaleDocInspection"/>
+
+        <!-- Tool window -->
+        <toolWindow
+                id="Doc Freshness"
+                anchor="bottom"
+                secondary="true"
+                icon="AllIcons.Actions.Preview"
+                factoryClass="com.jakubjirak.docfreshness.ui.FreshnessToolWindowFactory"/>
+
+        <!-- Settings page -->
+        <applicationConfigurable
+                id="com.jakubjirak.docfreshness.settings"
+                parentId="tools"
+                displayName="Docstring Freshness Monitor"
+                instance="com.jakubjirak.docfreshness.settings.DocFreshnessConfigurable"/>
+
+        <!-- Persistent settings -->
+        <applicationService
+                serviceImplementation="com.jakubjirak.docfreshness.settings.DocFreshnessSettings"/>
+
+        <!-- Notification group -->
+        <notificationGroup
+                id="Doc Freshness Monitor"
+                displayType="BALLOON"
+                toolWindowId="Doc Freshness"/>
+    </extensions>
+</idea-plugin>
