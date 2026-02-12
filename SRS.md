@@ -138,8 +138,8 @@ ProjectFreshnessReport {
 ## 6. Rozhraní
 
 ### 6.1 Extension Points
-- `com.jirak.docfreshness.languageSupport` — EP pro přidání podpory dalších jazyků
-- `com.jirak.docfreshness.scoreCalculator` — EP pro custom skóre algoritmus
+- `com.jakubjirak.docfreshness.languageSupport` — EP pro přidání podpory dalších jazyků
+- `com.jakubjirak.docfreshness.scoreCalculator` — EP pro custom skóre algoritmus
 
 ### 6.2 UI komponenty
 - Gutter icon provider (LineMarkerProvider)
