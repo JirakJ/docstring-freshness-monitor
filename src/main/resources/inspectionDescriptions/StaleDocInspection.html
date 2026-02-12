@@ -1,0 +1,16 @@
+<html>
+<body>
+<p>Reports documentation blocks (Javadoc, KDoc, docstrings, JSDoc) that may be outdated.</p>
+<p>The inspection uses git history to compare when the documentation was last modified versus
+when the associated code was last changed. If the code has been modified multiple times since
+the documentation was updated, the doc block is marked as stale.</p>
+<h3>Freshness Levels</h3>
+<ul>
+    <li><b>Fresh (80–100)</b> — documentation is up to date</li>
+    <li><b>Aging (50–79)</b> — documentation may need review</li>
+    <li><b>Stale (20–49)</b> — documentation is likely outdated</li>
+    <li><b>Rotten (0–19)</b> — documentation is severely outdated</li>
+</ul>
+<p>Configure thresholds in Settings → Tools → Docstring Freshness Monitor.</p>
+</body>
+</html>

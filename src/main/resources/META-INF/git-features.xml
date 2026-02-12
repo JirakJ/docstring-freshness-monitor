@@ -1,0 +1,7 @@
+<idea-plugin>
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- Project-level git history service, available only when Git4Idea is present -->
+        <projectService
+                serviceImplementation="com.jakubjirak.docfreshness.git.GitHistoryAnalyzer"/>
+    </extensions>
+</idea-plugin>
