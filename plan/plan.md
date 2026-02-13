@@ -233,6 +233,40 @@
 - [ ] Marketplace listing
 - [ ] Git tag `v2026.2.1`
 
+## Fáze 13: Git Enhancement — Commit-Aware Staleness
+
+- [ ] `GitLogAnalyzer.kt` — parsování `git log -L` výstupu pro line-range historii
+- [ ] `CommitClassifier.kt` — klasifikace commitů (code-only, doc-only, both, refactor)
+- [ ] `IncrementalStalenessTracker.kt` — cache posledního analyzovaného commitu, delta analýza
+- [ ] Integrace s `FreshnessCalculator.kt` — rozšíření skóre algoritmu o commit-aware data
+- [ ] `CommitStalenessData.kt`, `ChangeType.kt` — datový model
+- [ ] Podpora `git log --follow` pro sledování přejmenování souborů
+- [ ] Konfigurovatelné ignorování merge commitů a bot commitů
+- [ ] Unit testy pro commit klasifikaci a inkrementální tracking
+
+## Fáze 14: Git Enhancement — Author Notification
+
+- [ ] `DocAuthorResolver.kt` — `git blame` wrapper pro docstring range
+- [ ] `ChangeSignificanceAnalyzer.kt` — klasifikace závažnosti změny (AST diff)
+- [ ] `AuthorNotificationService.kt` — project-level service, debounce, batching
+- [ ] `AuthorNotificationBalloon.kt` — UI notifikace s akcemi (View Diff, Dismiss, Mute)
+- [ ] `DocAuthorInfo.kt`, `AuthorNotification.kt`, `ChangeSignificance.kt` — datový model
+- [ ] Porovnání aktuálního uživatele s `git config user.email`
+- [ ] Batch notifikace: max 1 za 5 minut pro stejný soubor
+- [ ] Unit testy pro author resolution a significance analysis
+
+## Fáze 15: Git Enhancement — Documentation Debt Timeline
+
+- [ ] `TimelineCollector.kt` — iterace přes `git log`, analýza per commit (sampling)
+- [ ] `TimelineChartPanel.kt` — vizualizace line chart (freshness skóre vs. čas)
+- [ ] `TrendCalculator.kt` — lineární regrese, slope computation
+- [ ] `TimelineExporter.kt` — JSON/CSV export service
+- [ ] `TimelineToolWindowTab.kt` — nový tab v existujícím tool window
+- [ ] `FreshnessTimelinePoint.kt`, `FreshnessTimeline.kt`, `TrendDirection.kt` — datový model
+- [ ] Konfigurovatelný sampling (every commit, weekly, monthly)
+- [ ] Drill-down: klik na bod v grafu → stav v daném commitu
+- [ ] Unit testy pro trend kalkulaci a data collection
+
 ---
 
 ## Budoucí fáze (Paid)
