@@ -1,115 +1,62 @@
 package com.jakubjirak.docfreshness.settings
 
-import com.intellij.openapi.options.Configurable
-import com.intellij.ui.IdeBorderFactory
-import com.intellij.ui.components.JBCheckBox
-import com.intellij.ui.components.JBLabel
-import com.intellij.ui.components.JBTextArea
-import com.intellij.util.ui.FormBuilder
-import javax.swing.JComponent
-import javax.swing.JPanel
-import javax.swing.JSpinner
-import javax.swing.SpinnerNumberModel
+import com.intellij.openapi.options.BoundConfigurable
+import com.intellij.ui.dsl.builder.bindIntValue
+import com.intellij.ui.dsl.builder.bindSelected
+import com.intellij.ui.dsl.builder.bindText
+import com.intellij.ui.dsl.builder.panel
 
 /**
  * Settings UI for Docstring Freshness Monitor.
  * Located at Settings → Tools → Docstring Freshness Monitor.
  */
-class DocFreshnessConfigurable : Configurable {
+class DocFreshnessConfigurable : BoundConfigurable("Docstring Freshness Monitor") {
 
-    private var agingSpinner: JSpinner? = null
-    private var staleSpinner: JSpinner? = null
-    private var rottenSpinner: JSpinner? = null
-    private var enableJavaKotlinCheckbox: JBCheckBox? = null
-    private var enablePythonCheckbox: JBCheckBox? = null
-    private var enableJavaScriptCheckbox: JBCheckBox? = null
-    private var ignoredPatternsArea: JBTextArea? = null
-    private var mainPanel: JPanel? = null
-
-    override fun getDisplayName(): String = "Docstring Freshness Monitor"
-
-    override fun createComponent(): JComponent {
+    override fun createPanel() = panel {
         val settings = DocFreshnessSettings.getInstance()
 
-        agingSpinner = JSpinner(SpinnerNumberModel(settings.agingThreshold, 0, 100, 5))
-        staleSpinner = JSpinner(SpinnerNumberModel(settings.staleThreshold, 0, 100, 5))
-        rottenSpinner = JSpinner(SpinnerNumberModel(settings.rottenThreshold, 0, 100, 5))
+        group("Freshness Thresholds") {
+            row("Aging threshold (days):") {
+                spinner(1..1000, 1)
+                    .comment("Documents older than this many days since last code change are marked as aging")
+                    .bindIntValue(settings::agingThreshold)
+            }
+            row("Stale threshold (days):") {
+                spinner(1..1000, 1)
+                    .comment("Documents older than this many days since last code change are marked as stale")
+                    .bindIntValue(settings::staleThreshold)
+            }
+            row("Rotten threshold (days):") {
+                spinner(1..1000, 1)
+                    .comment("Documents older than this many days since last code change are marked as rotten")
+                    .bindIntValue(settings::rottenThreshold)
+            }
+        }
 
-        enableJavaKotlinCheckbox = JBCheckBox("Java / Kotlin (Javadoc, KDoc)", settings.enableJavaKotlin)
-        enablePythonCheckbox = JBCheckBox("Python (docstrings)", settings.enablePython)
-        enableJavaScriptCheckbox = JBCheckBox("JavaScript / TypeScript (JSDoc)", settings.enableJavaScript)
+        group("Language Support") {
+            row {
+                checkBox("Java / Kotlin (Javadoc, KDoc)")
+                    .comment("Analyze freshness of Javadoc and KDoc comments")
+                    .bindSelected(settings::enableJavaKotlin)
+            }
+            row {
+                checkBox("Python (docstrings)")
+                    .comment("Analyze freshness of Python docstrings")
+                    .bindSelected(settings::enablePython)
+            }
+            row {
+                checkBox("JavaScript / TypeScript (JSDoc)")
+                    .comment("Analyze freshness of JSDoc comments")
+                    .bindSelected(settings::enableJavaScript)
+            }
+        }
 
-        ignoredPatternsArea = JBTextArea(settings.ignoredPatterns, 4, 40)
-
-        val thresholdsPanel = FormBuilder.createFormBuilder()
-            .addLabeledComponent(JBLabel("Aging threshold (score below):"), agingSpinner!!)
-            .addLabeledComponent(JBLabel("Stale threshold (score below):"), staleSpinner!!)
-            .addLabeledComponent(JBLabel("Rotten threshold (score below):"), rottenSpinner!!)
-            .panel
-        thresholdsPanel.border = IdeBorderFactory.createTitledBorder("Freshness Thresholds")
-
-        val languagesPanel = FormBuilder.createFormBuilder()
-            .addComponent(enableJavaKotlinCheckbox!!)
-            .addComponent(enablePythonCheckbox!!)
-            .addComponent(enableJavaScriptCheckbox!!)
-            .panel
-        languagesPanel.border = IdeBorderFactory.createTitledBorder("Enabled Languages")
-
-        val ignoredPanel = FormBuilder.createFormBuilder()
-            .addLabeledComponent(JBLabel("Ignored file patterns (one per line):"), ignoredPatternsArea!!)
-            .panel
-        ignoredPanel.border = IdeBorderFactory.createTitledBorder("Ignored Files")
-
-        mainPanel = FormBuilder.createFormBuilder()
-            .addComponent(thresholdsPanel)
-            .addComponent(languagesPanel)
-            .addComponentFillVertically(ignoredPanel, 10)
-            .panel
-
-        return mainPanel!!
-    }
-
-    override fun isModified(): Boolean {
-        val settings = DocFreshnessSettings.getInstance()
-        return (agingSpinner?.value as? Int) != settings.agingThreshold ||
-            (staleSpinner?.value as? Int) != settings.staleThreshold ||
-            (rottenSpinner?.value as? Int) != settings.rottenThreshold ||
-            enableJavaKotlinCheckbox?.isSelected != settings.enableJavaKotlin ||
-            enablePythonCheckbox?.isSelected != settings.enablePython ||
-            enableJavaScriptCheckbox?.isSelected != settings.enableJavaScript ||
-            ignoredPatternsArea?.text != settings.ignoredPatterns
-    }
-
-    override fun apply() {
-        val settings = DocFreshnessSettings.getInstance()
-        settings.agingThreshold = agingSpinner?.value as? Int ?: settings.agingThreshold
-        settings.staleThreshold = staleSpinner?.value as? Int ?: settings.staleThreshold
-        settings.rottenThreshold = rottenSpinner?.value as? Int ?: settings.rottenThreshold
-        settings.enableJavaKotlin = enableJavaKotlinCheckbox?.isSelected ?: true
-        settings.enablePython = enablePythonCheckbox?.isSelected ?: true
-        settings.enableJavaScript = enableJavaScriptCheckbox?.isSelected ?: true
-        settings.ignoredPatterns = ignoredPatternsArea?.text ?: ""
-    }
-
-    override fun reset() {
-        val settings = DocFreshnessSettings.getInstance()
-        agingSpinner?.value = settings.agingThreshold
-        staleSpinner?.value = settings.staleThreshold
-        rottenSpinner?.value = settings.rottenThreshold
-        enableJavaKotlinCheckbox?.isSelected = settings.enableJavaKotlin
-        enablePythonCheckbox?.isSelected = settings.enablePython
-        enableJavaScriptCheckbox?.isSelected = settings.enableJavaScript
-        ignoredPatternsArea?.text = settings.ignoredPatterns
-    }
-
-    override fun disposeUIResources() {
-        agingSpinner = null
-        staleSpinner = null
-        rottenSpinner = null
-        enableJavaKotlinCheckbox = null
-        enablePythonCheckbox = null
-        enableJavaScriptCheckbox = null
-        ignoredPatternsArea = null
-        mainPanel = null
+        group("Filtering") {
+            row("Ignored patterns:") {
+                expandableTextField()
+                    .comment("Comma-separated glob patterns to exclude from analysis (e.g., */test/*, */generated/*)")
+                    .bindText(settings::ignoredPatterns)
+            }
+        }
     }
 }
