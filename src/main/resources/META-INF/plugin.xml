@@ -5,22 +5,34 @@
     <vendor email="jakub@jirak.dev" url="https://github.com/jakubjirak">Jakub Jirák</vendor>
 
     <description><![CDATA[
-    <h2>Docstring Freshness Monitor</h2>
-    <p>Detects stale documentation by comparing code changes with documentation changes. When code around a
-    docstring/comment changes but the doc doesn't, it marks the doc as potentially outdated.</p>
+<h2>Docstring Freshness Monitor</h2>
+<p>
+  Outdated documentation is worse than no documentation. Docstring Freshness Monitor uses Git history to
+  compare when code was last changed versus when its documentation was last updated — giving every docstring
+  a <b>freshness score</b> from 0 to 100.
+</p>
 
-    <h3>Features</h3>
-    <ul>
-        <li><b>Freshness scoring</b> — 0–100 score for every doc block based on git history</li>
-        <li><b>Stale doc inspection</b> — highlights outdated documentation with configurable severity</li>
-        <li><b>Project dashboard</b> — tool window showing freshness scores per file (Pro)</li>
-        <li><b>Multi-language</b> — Java/Kotlin (Javadoc/KDoc), Python (docstrings), JS/TS (JSDoc)</li>
-        <li><b>Git integration</b> — uses git blame/log to track code vs. doc changes</li>
-    </ul>
+<h2>Key Features</h2>
+<ul>
+  <li><b>Freshness Scoring (0–100)</b> — Quantified metric based on code-to-doc change ratio</li>
+  <li><b>Stale Doc Inspection</b> — IDE warnings with configurable severity for outdated docstrings</li>
+  <li><b>Multi-Language Support</b> — Java, Kotlin, Python, JavaScript, and TypeScript</li>
+  <li><b>Git-Powered Analysis</b> — Compares commit timestamps of code blocks and their docstrings</li>
+  <li><b>Quick Actions</b> — Mark docs as reviewed or jump to the code change that made them stale</li>
+</ul>
 
-    <h3>Part of Code Health Suite</h3>
-    <p>Works alongside <b>Dead Code Drift Radar</b> for comprehensive code quality metrics.</p>
-    ]]></description>
+<h2>Why Docstring Freshness Monitor?</h2>
+<p>
+  Misleading documentation causes bugs. This plugin automatically identifies docs that haven't kept pace
+  with code changes, so your team can prioritize documentation updates where they matter most.
+</p>
+
+<h2>Free vs Pro</h2>
+<ul>
+  <li><b>Free:</b> Freshness inspection, stale doc warnings, multi-language support</li>
+  <li><b>Pro:</b> Project-wide freshness dashboard with per-file scores, trend tracking, team freshness reports, and integration with documentation generators</li>
+</ul>
+]]></description>
 
     <depends>com.intellij.modules.platform</depends>
     <depends optional="true" config-file="git-features.xml">Git4Idea</depends>
