@@ -41,6 +41,7 @@
         <!-- Inspection -->
         <localInspection
                 id="com.jakubjirak.docfreshness.staleDocInspection"
+                shortName="StaleDocInspection"
                 language=""
                 displayName="Stale documentation"
                 groupName="Documentation freshness"
