@@ -2,37 +2,47 @@
     <id>com.jakubjirak.docfreshness</id>
     <product-descriptor code="PDOCFRESHNESS" release-date="20260215" release-version="20262" optional="true"/>
     <name>Docstring Freshness Monitor</name>
-    <vendor email="jakub@jirak.dev" url="https://github.com/jakubjirak">Jakub Jirák</vendor>
+    <vendor email="support@jakubjirak.com" url="https://github.com/jakubjirak">Jakub Jirák</vendor>
 
     <description><![CDATA[
-<h2>Docstring Freshness Monitor</h2>
-<p>
-  Outdated documentation is worse than no documentation. Docstring Freshness Monitor uses Git history to
-  compare when code was last changed versus when its documentation was last updated — giving every docstring
-  a <b>freshness score</b> from 0 to 100.
-</p>
+<h2>Docstring Freshness Monitor — Keep Your Documentation as Fresh as Your Code</h2>
 
-<h2>Key Features</h2>
+<p>Detect stale documentation automatically using git history analysis. Every docstring gets a freshness 
+score (0-100) so you know which docs are trustworthy and which are outdated.</p>
+
+<h3>Core Features</h3>
 <ul>
-  <li><b>Freshness Scoring (0–100)</b> — Quantified metric based on code-to-doc change ratio</li>
-  <li><b>Stale Doc Inspection</b> — IDE warnings with configurable severity for outdated docstrings</li>
-  <li><b>Multi-Language Support</b> — Java, Kotlin, Python, JavaScript, and TypeScript</li>
-  <li><b>Git-Powered Analysis</b> — Compares commit timestamps of code blocks and their docstrings</li>
-  <li><b>Quick Actions</b> — Mark docs as reviewed or jump to the code change that made them stale</li>
+    <li><b>Freshness Scoring</b> — 0-100 score for every docstring based on git history</li>
+    <li><b>Gutter Icons</b> — Visual indicators: 🟢 Fresh, 🟡 Aging, 🔴 Stale</li>
+    <li><b>Hover Tooltips</b> — Last code/doc change dates and divergent commit count</li>
+    <li><b>Stale Doc Inspection</b> — IDE inspection with configurable severity</li>
+    <li><b>Multi-Language</b> — Java/Kotlin, Python, JavaScript/TypeScript</li>
+    <li><b>Mark as Reviewed</b> — Quick-fix to acknowledge stale docs</li>
 </ul>
 
-<h2>Why Docstring Freshness Monitor?</h2>
-<p>
-  Misleading documentation causes bugs. This plugin automatically identifies docs that haven't kept pace
-  with code changes, so your team can prioritize documentation updates where they matter most.
-</p>
-
-<h2>Free vs Pro</h2>
+<h3>Pro Features ($2.90/month)</h3>
 <ul>
-  <li><b>Free:</b> Freshness inspection, stale doc warnings, multi-language support</li>
-  <li><b>Pro:</b> Project-wide freshness dashboard with per-file scores, trend tracking, team freshness reports, and integration with documentation generators</li>
+    <li>All languages enabled simultaneously</li>
+    <li>Project dashboard with treemap visualization</li>
+    <li>Trend analysis tracking</li>
+    <li>Export reports (HTML, JSON, CSV)</li>
+    <li>CI integration with SARIF and JUnit XML output</li>
+    <li>Custom score algorithm extension point</li>
 </ul>
-]]></description>
+
+<h3>Requirements</h3>
+<ul>
+    <li>IntelliJ IDEA 2024.1+ (or any JetBrains IDE)</li>
+    <li>Git repository with history</li>
+</ul>
+
+<h3>Support</h3>
+<p>
+    <a href="https://github.com/JirakJ/docstring-freshness-monitor/issues">Documentation</a> |
+    <a href="https://github.com/JirakJ/docstring-freshness-monitor/issues">Issue Tracker</a> |
+    <a href="https://github.com/JirakJ/docstring-freshness-monitor/issues">Contact Support</a>
+</p>
+    ]]></description>
 
     <depends>com.intellij.modules.platform</depends>
     <depends optional="true" config-file="git-features.xml">Git4Idea</depends>
@@ -74,4 +84,20 @@
                 displayType="BALLOON"
                 toolWindowId="Doc Freshness"/>
     </extensions>
+
+    <change-notes><![CDATA[
+        <h3>What's New</h3>
+        <ul>
+            <li><b>Freshness Scoring</b> - Each docstring gets a 0-100 freshness score based on git history analysis</li>
+            <li><b>Visual Gutter Icons</b> - Color-coded indicators showing documentation status: green (fresh), yellow (aging), red (stale)</li>
+            <li><b>Hover Tooltips</b> - Shows last code change, last doc change, and number of divergent commits</li>
+            <li><b>Stale Documentation Inspection</b> - IDE inspection that flags outdated documentation with configurable severity</li>
+            <li><b>Multi-Language Support</b> - Works with Java, Kotlin, Python, JavaScript, and TypeScript</li>
+            <li><b>Git-Powered Analysis</b> - Uses git blame and log to detect when code changes but docs don't</li>
+            <li><b>Mark as Reviewed</b> - Quick-fix action to acknowledge stale docs without updating them</li>
+            <li><b>Batch Analysis</b> - Analyze entire project via Analyze → Inspect Code</li>
+            <li><b>Project Dashboard (Pro)</b> - Overview of documentation freshness across all files with treemap visualization</li>
+            <li><b>Export Reports (Pro)</b> - Generate HTML, JSON, and CSV reports for documentation health tracking</li>
+        </ul>
+    ]]></change-notes>
 </idea-plugin>
