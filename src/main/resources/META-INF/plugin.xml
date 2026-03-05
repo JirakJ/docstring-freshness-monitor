@@ -4,13 +4,12 @@
     <name>Docstring Freshness Monitor</name>
     <vendor email="support@jakubjirak.com" url="https://github.com/jakubjirak">Jakub Jirák</vendor>
 
-    <description><![CDATA[
-<h2>Docstring Freshness Monitor — Keep Your Documentation as Fresh as Your Code</h2>
+    <description><![CDATA[<h2>Docstring Freshness Monitor — Keep Your Documentation as Fresh as Your Code</h2>
 
 <p>Detect stale documentation automatically using git history analysis. Every docstring gets a freshness 
 score (0-100) so you know which docs are trustworthy and which are outdated.</p>
 
-<h3>Core Features</h3>
+<h3>Features</h3>
 <ul>
     <li><b>Freshness Scoring</b> — 0-100 score for every docstring based on git history</li>
     <li><b>Gutter Icons</b> — Visual indicators: 🟢 Fresh, 🟡 Aging, 🔴 Stale</li>
@@ -20,7 +19,6 @@ score (0-100) so you know which docs are trustworthy and which are outdated.</p>
     <li><b>Mark as Reviewed</b> — Quick-fix to acknowledge stale docs</li>
 </ul>
 
-<h3>Pro Features ($2.90/month)</h3>
 <ul>
     <li>All languages enabled simultaneously</li>
     <li>Project dashboard with treemap visualization</li>
@@ -41,8 +39,7 @@ score (0-100) so you know which docs are trustworthy and which are outdated.</p>
     <a href="https://github.com/JirakJ/docstring-freshness-monitor/issues">Documentation</a> |
     <a href="https://github.com/JirakJ/docstring-freshness-monitor/issues">Issue Tracker</a> |
     <a href="https://github.com/JirakJ/docstring-freshness-monitor/issues">Contact Support</a>
-</p>
-    ]]></description>
+</p>]]></description>
 
     <depends>com.intellij.modules.platform</depends>
     <depends optional="true" config-file="git-features.xml">Git4Idea</depends>
@@ -83,6 +80,9 @@ score (0-100) so you know which docs are trustworthy and which are outdated.</p>
                 id="Doc Freshness Monitor"
                 displayType="BALLOON"
                 toolWindowId="Doc Freshness"/>
+    
+        <notificationGroup id="Docstring Freshness Monitor Feedback" displayType="BALLOON"/>
+        <projectActivity implementation="com.jakubjirak.docfreshness.feedback.FeedbackNotifier"/>
     </extensions>
 
     <change-notes><![CDATA[
