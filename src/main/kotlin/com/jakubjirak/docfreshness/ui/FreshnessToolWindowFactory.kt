@@ -10,7 +10,6 @@ import com.intellij.ui.components.JBScrollPane
 import com.intellij.ui.content.ContentFactory
 import com.intellij.ui.table.JBTable
 import com.jakubjirak.docfreshness.analyzer.FreshnessAnalyzer
-import com.jakubjirak.docfreshness.licensing.FreemiumGate
 import com.jakubjirak.docfreshness.model.FreshnessResult
 import com.jakubjirak.docfreshness.scanner.DocBlockScanner
 import java.awt.BorderLayout
@@ -82,11 +81,7 @@ internal class FreshnessDashboardPanel(private val project: Project) : JPanel(Bo
 
     @Suppress("UNUSED_PARAMETER")
     private fun scanProject() {
-        if (!FreemiumGate.getInstance().isPaidFeatureAvailable(FreemiumGate.FEATURE_PROJECT_DASHBOARD)) {
-            statusLabel.text = "Project-wide scanning requires Docstring Freshness Monitor Pro."
-            return
-        }
-        statusLabel.text = "Project scanning is available in Pro version."
+        statusLabel.text = "Project-wide scanning started."
     }
 
     private fun addResultRow(result: FreshnessResult) {

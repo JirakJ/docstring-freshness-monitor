@@ -1,6 +1,5 @@
 <idea-plugin>
     <id>com.jakubjirak.docfreshness</id>
-    <product-descriptor code="PDOCFRESHNESS" release-date="20260215" release-version="20262" optional="true"/>
     <name>Docstring Freshness Monitor</name>
     <vendor email="support@jakubjirak.com" url="https://github.com/jakubjirak">Jakub Jirák</vendor>
 
@@ -96,8 +95,8 @@ score (0-100) so you know which docs are trustworthy and which are outdated.</p>
             <li><b>Git-Powered Analysis</b> - Uses git blame and log to detect when code changes but docs don't</li>
             <li><b>Mark as Reviewed</b> - Quick-fix action to acknowledge stale docs without updating them</li>
             <li><b>Batch Analysis</b> - Analyze entire project via Analyze → Inspect Code</li>
-            <li><b>Project Dashboard (Pro)</b> - Overview of documentation freshness across all files with treemap visualization</li>
-            <li><b>Export Reports (Pro)</b> - Generate HTML, JSON, and CSV reports for documentation health tracking</li>
+            <li><b>Project Dashboard</b> - Overview of documentation freshness across all files with treemap visualization</li>
+            <li><b>Export Reports</b> - Generate HTML, JSON, and CSV reports for documentation health tracking</li>
         </ul>
     ]]></change-notes>
 </idea-plugin>

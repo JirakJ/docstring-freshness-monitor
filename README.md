@@ -8,7 +8,6 @@
 
 ## ✨ Features
 
-### Free Tier
 - **Freshness scoring** — 0–100 score for every doc block based on git history
 - **Gutter icons** — colored indicators (🟢 Fresh, 🟡 Aging, 🔴 Stale) next to each doc block
 - **Hover tooltips** — last code change, last doc change, number of divergent commits
@@ -17,9 +16,7 @@
 - **Git integration** — uses git blame/log to track code vs. doc changes
 - **Mark as reviewed** — quick-fix to reset freshness without changing text
 - **Batch analysis** — run via Analyze → Inspect Code
-
-### Pro Tier ($2.90/month)
-- All languages enabled simultaneously (free tier: one at a time)
+- **All languages enabled simultaneously**
 - **Project dashboard** — tool window with freshness scores across the entire project
 - **Treemap visualization** — file size = LOC, color = freshness
 - **Trend analysis** — track freshness improvements/regressions over time
@@ -84,7 +81,7 @@ Create a `.doc-freshness.yaml` in your repository root for shared team settings.
 ### Project Dashboard
 - Open the **Doc Freshness** tool window from the bottom panel
 - Filter by worst files, modules, or trends
-- Export reports in HTML, JSON, or CSV format (Pro)
+- Export reports in HTML, JSON, or CSV format
 
 ## 📋 Requirements
 

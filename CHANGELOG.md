@@ -36,10 +36,10 @@
 - Ignored file patterns configuration
 - `.doc-freshness.yaml` support for team-shared configuration
 - `@freshness-ignore` tag for per-block suppression
-- Project dashboard tool window with freshness overview (Pro)
-- Treemap visualization (Pro)
-- Export reports in HTML, JSON, CSV (Pro)
-- CI integration with CLI runner (Pro)
-- SARIF output for GitHub Code Scanning (Pro)
-- JUnit XML output for CI reports (Pro)
-- Custom score algorithm extension point (Pro)
+- Project dashboard tool window with freshness overview
+- Treemap visualization
+- Export reports in HTML, JSON, CSV
+- CI integration with CLI runner
+- SARIF output for GitHub Code Scanning
+- JUnit XML output for CI reports
+- Custom score algorithm extension point
