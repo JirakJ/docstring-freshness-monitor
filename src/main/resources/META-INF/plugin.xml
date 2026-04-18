@@ -2,6 +2,8 @@
     <id>com.jakubjirak.docfreshness</id>
     <name>Docstring Freshness Monitor</name>
     <vendor email="support@jakubjirak.com" url="https://github.com/jakubjirak">Jakub Jirák</vendor>
+    <product-descriptor code="PDOCSTRINGFRESH" release-date="20260418" release-version="20263" optional="true"/>
+
 
     <description><![CDATA[<h2>Docstring Freshness Monitor — Keep Your Documentation as Fresh as Your Code</h2>
 
