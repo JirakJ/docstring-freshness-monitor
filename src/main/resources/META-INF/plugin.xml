@@ -1,8 +1,7 @@
 <idea-plugin>
     <id>com.jakubjirak.docfreshness</id>
     <name>Docstring Freshness Monitor</name>
-    <vendor email="support@jakubjirak.com" url="https://github.com/jakubjirak">Jakub Jirák</vendor>
-    <product-descriptor code="PDOCSTRINGFRESH" release-date="20260418" release-version="20263" optional="true"/>
+    <vendor email="support@jakubjirak.com" url="https://github.com/JirakJ/docstring-freshness-monitor">Jakub Jirák</vendor>
 
 
     <description><![CDATA[<h2>Docstring Freshness Monitor — Keep Your Documentation as Fresh as Your Code</h2>
@@ -87,6 +86,8 @@ score (0-100) so you know which docs are trustworthy and which are outdated.</p>
     </extensions>
 
     <change-notes><![CDATA[
+        <h3>2026.8.0</h3><ul><li>The plugin is now completely free — all features unlocked, no license needed.</li><li>Source code is now open source under Apache-2.0: https://github.com/JirakJ/docstring-freshness-monitor</li></ul>
+
         <h3>What's New</h3>
         <ul>
             <li><b>Freshness Scoring</b> - Each docstring gets a 0-100 freshness score based on git history analysis</li>
