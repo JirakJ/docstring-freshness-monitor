@@ -34,7 +34,7 @@ _(183 characters)_
 
 ### ✨ Key Features
 
-#### 🆓 Free — Catch Stale Docs Automatically
+#### 🔍 Catch Stale Docs Automatically
 
 - 📊 **Freshness Score (0–100)** — Per-docstring health score based on code vs. documentation change divergence
 - 🚦 **Gutter Icons** — Visual indicators at a glance: 🟢 Fresh, 🟡 Aging, 🔴 Stale
@@ -50,9 +50,8 @@ _(183 characters)_
 - 👥 **Team Configuration** — Share settings via `.doc-freshness.yaml` in your repo
 - 🏷️ **`@freshness-ignore`** — Suppress scoring for intentionally static documentation
 
-#### 💎 Pro — $2.90/month
+#### 🚀 Project-wide Insight & CI
 
-- 🌐 **All Languages Simultaneously** — No per-language limit
 - 📊 **Project Dashboard** — Dedicated tool window with freshness scores across your entire codebase
 - 🗺️ **Treemap Visualization** — File size = lines of code, color = freshness score
 - 📈 **Trend Analysis** — Track documentation freshness trajectory over time
@@ -67,10 +66,7 @@ _(183 characters)_
 
 ### 💰 Pricing Model
 
-| Tier     | Price       | Highlights                                              |
-|----------|-------------|---------------------------------------------------------|
-| **Free** | $0          | Freshness scores, gutter icons, inspections, multi-language, batch analysis |
-| **Pro**  | $2.90/month | Dashboard, treemap, trend analysis, export reports, CI integration, custom scoring |
+Free & open source (Apache-2.0) — every feature is available to everyone, no license needed.
 
 ---
 
@@ -111,10 +107,10 @@ _(183 characters)_
 | 2  | **Hover tooltip detail** — Expanded tooltip showing last code change, last doc change, and divergent commits |
 | 3  | **Stale doc inspection warning** — IDE inspection highlighting a stale docstring with suggested quick-fix |
 | 4  | **"Mark as Reviewed" quick-fix** — Quick-fix popup allowing acknowledgment of reviewed stale documentation |
-| 5  | **Project dashboard** — Tool window showing freshness scores for all documented elements across the project (Pro) |
-| 6  | **Treemap visualization** — Color-coded treemap where file size = LOC and color = freshness score (Pro) |
+| 5  | **Project dashboard** — Tool window showing freshness scores for all documented elements across the project |
+| 6  | **Treemap visualization** — Color-coded treemap where file size = LOC and color = freshness score |
 | 7  | **Settings panel** — Configuration page with aging/stale/rotten thresholds and language toggles |
-| 8  | **CI integration output** — Terminal showing `./gradlew docFreshness --threshold=60` results (Pro) |
+| 8  | **CI integration output** — Terminal showing `./gradlew docFreshness --threshold=60` results |
 
 ---
 
@@ -173,7 +169,6 @@ _(183 characters)_
 - [ ] Screenshots are high-resolution (1280×800 or higher), PNG format
 - [ ] Plugin ID matches `gradle.properties` and `plugin.xml`
 - [ ] `plugin.xml` vendor email and URL are correct
-- [ ] Pricing tiers configured in JetBrains Marketplace seller dashboard
 - [ ] Product code `PDOCFRESHNESS` is registered
 - [ ] License agreement / EULA uploaded
 - [ ] Compatibility range tested on minimum supported IDE version (2024.3)
