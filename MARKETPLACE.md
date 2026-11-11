@@ -24,25 +24,12 @@ freshness score to every documentation block in your project.</p>
 
 <h3>Key Features</h3>
 <ul>
-    <li><b>Freshness Scoring (0–100)</b> — every doc block gets a score based on commits since last doc change, changed lines, and time elapsed</li>
-    <li><b>Gutter Icons</b> — see freshness at a glance: 🟢 Fresh (80–100), 🟡 Aging (50–79), 🔴 Stale (0–49)</li>
-    <li><b>Hover Tooltips</b> — last code change, last doc change, and divergent commit count</li>
-    <li><b>Stale Doc Inspection</b> — registered IDE inspection with configurable severity (Warning/Weak Warning)</li>
+    <li><b>Freshness Scoring (0–100)</b> — based on the commits that touched the code below a doc block since the doc last changed, plus the time gap</li>
+    <li><b>Stale Doc Inspection</b> — stale blocks as warnings, rotten blocks as errors; project-wide via Analyze → Inspect Code</li>
     <li><b>Multi-Language Support</b> — Java (Javadoc), Kotlin (KDoc), Python (docstrings), JavaScript/TypeScript (JSDoc)</li>
-    <li><b>Git Integration</b> — uses git blame and log to track code vs. documentation changes</li>
-    <li><b>"Mark as Reviewed" Quick-Fix</b> — reset freshness score without editing the doc text</li>
-    <li><b>Batch Analysis</b> — run via Analyze → Inspect Code for project-wide scanning</li>
-    <li><b>Configurable Thresholds</b> — set your own aging, stale, and rotten score boundaries</li>
-    <li><b>Suppress Per-Block</b> — add <code>@freshness-ignore</code> to any doc block to exclude it</li>
-    <li><b>Project Dashboard</b> — tool window with project-wide freshness overview, worst files, and worst modules</li>
-    <li><b>Treemap Visualization</b> — file size = lines of code, color = freshness score</li>
-    <li><b>Trend Analysis</b> — track how documentation freshness improves or declines over time</li>
-    <li><b>Export Reports</b> — HTML, JSON, and CSV output for reviews and audits</li>
-    <li><b>CI Integration</b> — <code>./gradlew docFreshness --threshold=60 --fail-on-stale</code></li>
-    <li><b>SARIF Output</b> — integrate with GitHub Code Scanning</li>
-    <li><b>JUnit XML Output</b> — plug into any CI reporting pipeline</li>
-    <li><b>Custom Score Algorithm</b> — extend via extension point for domain-specific scoring</li>
-    <li><b>"Mark as Reviewed" Audit Trail</b> — track who reviewed what and when</li>
+    <li><b>Git Integration</b> — <code>git log -L</code> on the doc and code line ranges</li>
+    <li><b>Doc Freshness Tool Window</b> — per-block scores for the current file</li>
+    <li><b>Configurable Thresholds</b> — your own fresh, aging, stale and rotten boundaries</li>
 </ul>
 
 <h3>Free &amp; Open Source</h3>
@@ -51,12 +38,12 @@ freshness score to every documentation block in your project.</p>
 <h3>Getting Started</h3>
 <ol>
     <li><b>Install</b> — search "Docstring Freshness Monitor" in Settings → Plugins → Marketplace</li>
-    <li><b>Open a file</b> — look for freshness gutter icons next to Javadoc, KDoc, docstrings, or JSDoc blocks</li>
-    <li><b>Explore</b> — hover over icons for details, or open the Doc Freshness tool window for the full picture</li>
+    <li><b>Open a file</b> — stale Javadoc, KDoc, docstrings or JSDoc blocks are highlighted by the inspection</li>
+    <li><b>Explore</b> — run Analyze → Inspect Code, or open the Doc Freshness tool window for per-block scores</li>
 </ol>
 
 <h3>Compatibility</h3>
-<p>IntelliJ IDEA 2024.3+ and all compatible JetBrains IDEs. Requires a Git repository and Java 17+.</p>
+<p>IntelliJ IDEA 2023.2+ and all compatible JetBrains IDEs. Requires a Git repository and Java 17+.</p>
 
 <h3>Part of Developer Productivity Suite</h3>
 <p>Docstring Freshness Monitor is part of the <b>Code Health Suite</b>, working alongside
@@ -75,10 +62,8 @@ Code Quality
 
 Free & open source (Apache-2.0) — every feature is available to everyone, no license needed.
 
-## Screenshots Needed
+## Screenshots
 
-1. **Gutter Icons in Editor** — Java/Python file showing 🟢🟡🔴 freshness icons next to docstrings with hover tooltip visible
-2. **Project Dashboard** — Doc Freshness tool window with treemap visualization colored by freshness score
-3. **Stale Doc Inspection** — editor highlighting a stale docstring with the "Mark as Reviewed" quick-fix popup
-4. **Trend Analysis** — chart showing documentation freshness improving over time
-5. **CI Integration** — terminal output of `./gradlew docFreshness` with pass/fail results
+1. **Stale Doc Inspection** — editor highlighting a stale docstring with the score in the tooltip
+2. **Doc Freshness tool window** — per-block scores for the current file
+3. **Inspection results** — Analyze → Inspect Code listing stale documentation across the project
