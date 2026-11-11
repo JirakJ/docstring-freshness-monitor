@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [2026.9.0] - 2026-11-11
+
 ### Fixed
 - The Doc Freshness tool window ignored Git history and showed every doc block as fresh; it now uses the same Git-based scoring as the inspection (in a background task).
 - Python docstrings using both quote styles are listed in file order.

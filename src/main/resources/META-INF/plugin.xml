@@ -76,6 +76,7 @@ score (0-100) so you know which docs are trustworthy and which are outdated.</p>
     </extensions>
 
     <change-notes><![CDATA[
+        <h3>2026.9.0</h3><ul><li>Fixed: The Doc Freshness tool window ignored Git history and showed every doc block as fresh; it now uses the same Git-based scoring as the inspection (in a background task).</li><li>Fixed: Python docstrings using both quote styles are listed in file order.</li><li>Fixed: Threshold settings were labelled as "days"; they are freshness-score boundaries (0–100).</li><li>Removed: The "Scan Project" button (it did nothing) and the language toggles / ignored-patterns settings (never applied).</li><li>Removed: Unused <code>DocDebtTimeline</code>, <code>DocAuthorNotifier</code> and <code>CommitAwareStaleness</code> classes.</li><li>Removed: Documentation of features that do not exist: gutter icons, hover tooltips, "Mark as reviewed" quick fix, dashboard treemap, trend analysis, report export, CI runner, SARIF/JUnit output, custom score extension point, <code>.doc-freshness.yaml</code> and <code>@freshness-ignore</code>.</li></ul>
         <h3>2026.8.0</h3><ul><li>The plugin is now completely free — all features unlocked, no license needed.</li><li>Source code is now open source under Apache-2.0: https://github.com/JirakJ/docstring-freshness-monitor</li></ul>
 
     ]]></change-notes>
