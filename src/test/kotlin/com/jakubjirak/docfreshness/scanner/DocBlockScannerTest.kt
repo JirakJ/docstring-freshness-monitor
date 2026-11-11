@@ -178,4 +178,30 @@ class DocBlockScannerTest {
         assertEquals(1, pyBlocks.size)
         assertEquals(1, tsBlocks.size)
     }
+
+    @Test
+    fun `python docstrings are returned in file order regardless of quote style`() {
+        val content = "def a():\n    \'\'\'first\'\'\'\n\ndef b():\n    \"\"\"second\"\"\"\n"
+        val blocks = DocBlockScanner.scanContent(content, "m.py")
+        assertEquals(listOf(2, 5), blocks.map { it.lineStart })
+    }
+
+    @Test
+    fun `unterminated javadoc is ignored`() {
+        assertEquals(0, DocBlockScanner.scanContent("/** never closed\nclass A", "A.java").size)
+    }
+
+    @Test
+    fun `jsdoc in plain javascript and single hash comment is not a block`() {
+        assertEquals(1, DocBlockScanner.scanContent("/** @param x */\nfunction f(x) {}", "f.js").size)
+        assertEquals(0, DocBlockScanner.scanContent("# just one line\ncode", "Makefile").size)
+    }
+
+    @Test
+    fun `block language follows the file extension`() {
+        val block = DocBlockScanner.scanContent("/** doc */\nfun f() = 1", "F.kt").single()
+        assertEquals(com.jakubjirak.docfreshness.model.DocLanguage.JAVA, block.language)
+        assertEquals(1, block.lineStart)
+        assertEquals(1, block.lineEnd)
+    }
 }

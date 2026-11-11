@@ -76,7 +76,8 @@ object DocBlockScanner {
             }
         }
         LOG.debug("Found ${results.size} Python docstrings in $filePath")
-        return results
+        // Two patterns are scanned one after the other; report blocks in file order.
+        return results.sortedBy { it.lineStart }
     }
 
     internal fun extractGenericCommentBlocks(
