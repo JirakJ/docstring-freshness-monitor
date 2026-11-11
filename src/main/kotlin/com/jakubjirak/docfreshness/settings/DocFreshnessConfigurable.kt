@@ -2,8 +2,6 @@ package com.jakubjirak.docfreshness.settings
 
 import com.intellij.openapi.options.BoundConfigurable
 import com.intellij.ui.dsl.builder.bindIntValue
-import com.intellij.ui.dsl.builder.bindSelected
-import com.intellij.ui.dsl.builder.bindText
 import com.intellij.ui.dsl.builder.panel
 
 /**
@@ -16,46 +14,20 @@ class DocFreshnessConfigurable : BoundConfigurable("Docstring Freshness Monitor"
         val settings = DocFreshnessSettings.getInstance()
 
         group("Freshness Thresholds") {
-            row("Aging threshold (days):") {
-                spinner(1..1000, 1)
-                    .comment("Documents older than this many days since last code change are marked as aging")
+            row("Fresh at score ≥") {
+                spinner(0..100, 1)
+                    .comment("Freshness score (0–100) at or above which a doc block is fresh")
                     .bindIntValue(settings::agingThreshold)
             }
-            row("Stale threshold (days):") {
-                spinner(1..1000, 1)
-                    .comment("Documents older than this many days since last code change are marked as stale")
+            row("Aging at score ≥") {
+                spinner(0..100, 1)
+                    .comment("Below the fresh threshold but at or above this score: aging")
                     .bindIntValue(settings::staleThreshold)
             }
-            row("Rotten threshold (days):") {
-                spinner(1..1000, 1)
-                    .comment("Documents older than this many days since last code change are marked as rotten")
+            row("Stale at score ≥ (below: rotten)") {
+                spinner(0..100, 1)
+                    .comment("Below the aging threshold but at or above this score: stale; lower scores are rotten")
                     .bindIntValue(settings::rottenThreshold)
-            }
-        }
-
-        group("Language Support") {
-            row {
-                checkBox("Java / Kotlin (Javadoc, KDoc)")
-                    .comment("Analyze freshness of Javadoc and KDoc comments")
-                    .bindSelected(settings::enableJavaKotlin)
-            }
-            row {
-                checkBox("Python (docstrings)")
-                    .comment("Analyze freshness of Python docstrings")
-                    .bindSelected(settings::enablePython)
-            }
-            row {
-                checkBox("JavaScript / TypeScript (JSDoc)")
-                    .comment("Analyze freshness of JSDoc comments")
-                    .bindSelected(settings::enableJavaScript)
-            }
-        }
-
-        group("Filtering") {
-            row("Ignored patterns:") {
-                expandableTextField()
-                    .comment("Comma-separated glob patterns to exclude from analysis (e.g., */test/*, */generated/*)")
-                    .bindText(settings::ignoredPatterns)
             }
         }
     }

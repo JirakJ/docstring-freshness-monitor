@@ -1,5 +1,17 @@
 # Changelog
 
+## [Unreleased]
+
+### Fixed
+- The Doc Freshness tool window ignored Git history and showed every doc block as fresh; it now uses the same Git-based scoring as the inspection (in a background task).
+- Python docstrings using both quote styles are listed in file order.
+- Threshold settings were labelled as "days"; they are freshness-score boundaries (0–100).
+
+### Removed
+- The "Scan Project" button (it did nothing) and the language toggles / ignored-patterns settings (never applied).
+- Unused `DocDebtTimeline`, `DocAuthorNotifier` and `CommitAwareStaleness` classes.
+- Documentation of features that do not exist: gutter icons, hover tooltips, "Mark as reviewed" quick fix, dashboard treemap, trend analysis, report export, CI runner, SARIF/JUnit output, custom score extension point, `.doc-freshness.yaml` and `@freshness-ignore`.
+
 ## [2026.8.0] - 2026-11-10
 
 ### Changed

@@ -45,29 +45,11 @@ class StaleDocInspection : LocalInspectionTool() {
         null
     }
 
-    private fun resolveGitAnalyzer(project: com.intellij.openapi.project.Project) = try {
-        GitHistoryAnalyzer.getInstance(project)
-    } catch (_: Exception) {
-        LOG.debug("Git4Idea not available, skipping git-based analysis")
-        null
-    }
-
     private fun analyzeDocBlock(
         docBlock: com.jakubjirak.docfreshness.model.DocBlock,
         ctx: InspectionContext,
     ): ProblemDescriptor? {
-        val codeLineStart = docBlock.lineEnd + 1
-        val codeLineEnd = codeLineStart + CODE_CONTEXT_LINES
-
-        val lastDocChange = ctx.gitAnalyzer?.getLastModification(ctx.virtualFile, docBlock.lineStart, docBlock.lineEnd)
-        val lastCodeChange = ctx.gitAnalyzer?.getLastModification(ctx.virtualFile, codeLineStart, codeLineEnd)
-        val codeChanges = if (lastDocChange != null) {
-            ctx.gitAnalyzer?.countChangesSince(ctx.virtualFile, codeLineStart, codeLineEnd, lastDocChange) ?: 0
-        } else {
-            0
-        }
-
-        val result = FreshnessAnalyzer.analyze(docBlock, codeChanges, lastCodeChange, lastDocChange)
+        val result = evaluate(docBlock, ctx.virtualFile, ctx.gitAnalyzer)
         if (result.level != FreshnessLevel.STALE && result.level != FreshnessLevel.ROTTEN) return null
 
         val offset = findOffsetForLine(ctx.content, docBlock.lineStart)
@@ -96,6 +78,36 @@ class StaleDocInspection : LocalInspectionTool() {
     companion object {
         private val LOG = Logger.getInstance(StaleDocInspection::class.java)
         private const val CODE_CONTEXT_LINES = 20
+
+        /**
+         * Scores [docBlock] from git history: when the doc lines last changed, when the following
+         * [CODE_CONTEXT_LINES] lines of code last changed, and how many commits touched that code since.
+         * Without git ([gitAnalyzer] `null`) every block scores as fresh. Runs git, so call it off the EDT.
+         */
+        fun evaluate(
+            docBlock: com.jakubjirak.docfreshness.model.DocBlock,
+            virtualFile: com.intellij.openapi.vfs.VirtualFile,
+            gitAnalyzer: GitHistoryAnalyzer?,
+        ): com.jakubjirak.docfreshness.model.FreshnessResult {
+            val codeLineStart = docBlock.lineEnd + 1
+            val codeLineEnd = codeLineStart + CODE_CONTEXT_LINES
+            val lastDocChange = gitAnalyzer?.getLastModification(virtualFile, docBlock.lineStart, docBlock.lineEnd)
+            val lastCodeChange = gitAnalyzer?.getLastModification(virtualFile, codeLineStart, codeLineEnd)
+            val codeChanges = lastDocChange
+                ?.let { gitAnalyzer?.countChangesSince(virtualFile, codeLineStart, codeLineEnd, it) }
+                ?: 0
+            return FreshnessAnalyzer.analyze(docBlock, codeChanges, lastCodeChange, lastDocChange)
+        }
+
+        fun resolveGitAnalyzer(project: com.intellij.openapi.project.Project): GitHistoryAnalyzer? = try {
+            GitHistoryAnalyzer.getInstance(project)
+        } catch (_: Exception) {
+            LOG.debug("Git4Idea not available, skipping git-based analysis")
+            null
+        } catch (_: NoClassDefFoundError) {
+            LOG.debug("Git4Idea not installed, skipping git-based analysis")
+            null
+        }
     }
 
     private class InspectionContext(

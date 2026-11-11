@@ -21,20 +21,12 @@ class DocFreshnessSettings : PersistentStateComponent<DocFreshnessSettings> {
     var staleThreshold: Int = FreshnessLevel.DEFAULT_STALE_THRESHOLD
     var rottenThreshold: Int = FreshnessLevel.DEFAULT_ROTTEN_THRESHOLD
 
-    var enableJavaKotlin: Boolean = true
-    var enablePython: Boolean = true
-    var enableJavaScript: Boolean = true
 
-    var ignoredPatterns: String = ""
 
     override fun getState(): DocFreshnessSettings = this
 
     override fun loadState(state: DocFreshnessSettings) {
         XmlSerializerUtil.copyBean(state, this)
-    }
-
-    fun getIgnoredPatternList(): List<String> {
-        return ignoredPatterns.lines().map { it.trim() }.filter { it.isNotBlank() }
     }
 
     companion object {

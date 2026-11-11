@@ -1,6 +1,6 @@
 # Docstring Freshness Monitor
 
-[![Build](https://github.com/JirakJ/docstring-freshness-monitor/actions/workflows/build.yml/badge.svg)](https://github.com/JirakJ/docstring-freshness-monitor/actions/workflows/build.yml)
+[![Build](https://github.com/JirakJ/docstring-freshness-monitor/actions/workflows/verify.yml/badge.svg)](https://github.com/JirakJ/docstring-freshness-monitor/actions/workflows/verify.yml)
 [![Version](https://img.shields.io/badge/version-2026.8.0-blue.svg)](https://github.com/JirakJ/docstring-freshness-monitor/releases)
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue)](LICENSE)
 
@@ -10,24 +10,12 @@
 
 ## ✨ Features
 
-- **Freshness scoring** — 0–100 score for every doc block based on git history
-- **Gutter icons** — colored indicators (🟢 Fresh, 🟡 Aging, 🔴 Stale) next to each doc block
-- **Hover tooltips** — last code change, last doc change, number of divergent commits
-- **Stale doc inspection** — highlights outdated documentation with configurable severity
-- **Multi-language support** — Java/Kotlin (Javadoc/KDoc), Python (docstrings), JavaScript/TypeScript (JSDoc)
-- **Git integration** — uses git blame/log to track code vs. doc changes
-- **Mark as reviewed** — quick-fix to reset freshness without changing text
-- **Batch analysis** — run via Analyze → Inspect Code
-- **All languages enabled simultaneously**
-- **Project dashboard** — tool window with freshness scores across the entire project
-- **Treemap visualization** — file size = LOC, color = freshness
-- **Trend analysis** — track freshness improvements/regressions over time
-- **Export reports** — HTML, JSON, CSV
-- **CI integration** — CLI runner: `./gradlew docFreshness --threshold=60 --fail-on-stale`
-- **SARIF output** — for GitHub Code Scanning
-- **JUnit XML output** — for CI report integration
-- **Custom score algorithm** — via extension point
-- **"Mark as reviewed" audit trail**
+- **Freshness scoring** — each doc block gets a 0–100 score: 15 points off per commit that touched the following 20 lines of code since the doc last changed, plus a small penalty for the time gap
+- **Stale documentation inspection** — flags stale (warning) and rotten (error) doc blocks; runs in the editor and via **Analyze → Inspect Code**
+- **Multi-language** — Javadoc and KDoc (`.java`, `.kt`, `.kts`), Python docstrings, JSDoc (`.js`, `.ts`, `.jsx`, `.tsx`), and `#` comment blocks in other files
+- **Git integration** — uses `git log -L` on the doc and code line ranges (Git plugin required for scores; without it every block counts as fresh)
+- **Doc Freshness tool window** — scan the current file and see every doc block with its score, level and code-change count
+- **Configurable thresholds** — score boundaries for fresh / aging / stale / rotten
 
 ## 📦 Installation
 
@@ -43,12 +31,10 @@
 
 ## 🚀 Quick Start
 
-1. Install the plugin and restart your IDE
-2. Open any file with documentation (Javadoc, KDoc, Python docstrings, or JSDoc)
-3. Look at the **gutter icons** next to doc blocks — they show freshness status
-4. Hover over a gutter icon to see detailed freshness information
-5. Run **Analyze → Inspect Code** to scan the entire project for stale documentation
-6. Open the **Doc Freshness** tool window (bottom panel) for a project-wide overview
+1. Open a file with documentation (Javadoc, KDoc, Python docstrings or JSDoc) in a Git repository
+2. Stale doc blocks are highlighted by the **Stale documentation** inspection
+3. Run **Analyze → Inspect Code** to find stale documentation in the whole project
+4. Open the **Doc Freshness** tool window and click **Scan Current File** for per-block scores
 
 ## ⚙️ Configuration
 
@@ -56,40 +42,24 @@ Settings are available at **Settings → Tools → Docstring Freshness Monitor**
 
 | Setting | Default | Description |
 |---------|---------|-------------|
-| Aging threshold | `80` | Score below which a doc block is considered "aging" |
-| Stale threshold | `50` | Score below which a doc block is considered "stale" |
-| Rotten threshold | `20` | Score below which a doc block is considered "rotten" |
-| Enable Java/Kotlin | `true` | Analyze Javadoc and KDoc comments |
-| Enable Python | `true` | Analyze Python docstrings |
-| Enable JavaScript/TypeScript | `true` | Analyze JSDoc comments |
-| Ignored file patterns | *(empty)* | Glob patterns for files to exclude (one per line) |
-
-### Team-shared Configuration
-
-Create a `.doc-freshness.yaml` in your repository root for shared team settings. Use `@freshness-ignore` tag in a doc block to suppress warnings for individual blocks.
+| Fresh at score ≥ | `80` | Scores at or above are fresh |
+| Aging at score ≥ | `50` | Below "fresh" but at or above this: aging |
+| Stale at score ≥ | `20` | Below "aging" but at or above this: stale; lower scores are rotten |
 
 ## 🎯 Usage
 
-### Editor Integration
-- **Gutter icons** appear next to each doc block showing freshness status
-- **Hover** over the icon for details: last code change, last doc change, divergent commit count
-- Use the **"Mark as reviewed"** quick-fix to acknowledge a doc block without modifying it
+### Inspection
+- **Stale documentation** is registered in the **Documentation freshness** group, enabled by default
+- Stale blocks are reported as warnings, rotten blocks as errors; the message shows the score and the number of code changes since the doc was last updated
+- Severity and scope can be adjusted under **Settings → Editor → Inspections**
 
-### Inspections
-- The **"Stale documentation"** inspection is registered under the **Documentation freshness** group
-- Enabled by default at **WARNING** severity
-- Run batch analysis via **Analyze → Inspect Code**
-
-### Project Dashboard
-- Open the **Doc Freshness** tool window from the bottom panel
-- Filter by worst files, modules, or trends
-- Export reports in HTML, JSON, or CSV format
+### Doc Freshness tool window
+- **Scan Current File** analyzes the active editor's file in the background and lists every doc block with line, score, level and code-change count
 
 ## 📋 Requirements
 
-- IntelliJ IDEA 2024.3+ (or any compatible JetBrains IDE)
-- Git repository (for freshness score calculation)
-- Java 17+
+- IntelliJ IDEA 2023.2+ (or another IntelliJ-based IDE, build 232+)
+- Git plugin and a Git repository (for freshness scores)
 
 ## 🏗️ Building from Source
 
